@@ -9,18 +9,19 @@ bash start_service.sh
 
 ## List Kafka Streams
 ```
+cd api/dockerfiles
 docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:2181
 ```
 
 ## Consume from kafka
 ```
-cd api/docker
+cd api/dockerfiles
 docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newBook --from-beginning
 ```
 
 ## Produce to Kafka
 ```
-cd api/docker
+cd api/dockerfiles
 docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic newBook
 ```
 
