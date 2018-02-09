@@ -9,34 +9,35 @@ bash start_service.sh
 
 ## List Kafka Streams
 ```
+cd api/dockerfiles
 docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:2181
 ```
 
 ## Consume from kafka
 ```
-cd api/docker
+cd api/dockerfiles
 docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newBook --from-beginning
 ```
 
 ## Produce to Kafka
 ```
-cd api/docker
+cd api/dockerfiles
 docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic newBook
 ```
 
 ## Health API Endpoint. GET request
 ```
-localhost:8080/health
-localhost:8080/swagger-resources
+curl http://localhost:8080/health; echo
+
 ```
 
 ## Swagger API Endpoint. GET request
 ```
-localhost:8080/swagger-resources
-localhost:8080/v2/api-docs
+curl http://localhost:8080/swagger-resources; echo
+curl http://localhost:8080/v2/api-docs; echo
 ```
 
-## Add new book API Endpoint. Post request body: eg: {"Name": "SampleBook", "Author": "SampleAuthor", "PublishedDate": "10/10/2010"}
+## Add new book API Endpoint. Make sure to have kafka consumer opened on a different terminal to consume posted message from the stream (Consume from kafka section above)
 ```
-localhost:8080/api/addbook
+curl -H "Content-Type: application/json" -X POST -d '{"Name": "SampleBook", "Author": "SampleAuthor", "PublishedDate": "10/10/2010"}' http://localhost:8080/api/addbook
 ```
