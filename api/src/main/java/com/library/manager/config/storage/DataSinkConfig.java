@@ -5,5 +5,8 @@ package com.library.manager.config.storage;
  */
 public interface DataSinkConfig {
 
-    void addBook(String message);
+    void bookAction(String action, String message);
+
+    void customerAction(String action, String message);
+
 }
