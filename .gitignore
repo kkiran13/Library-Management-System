@@ -2,3 +2,4 @@
 *.iml
 target/
 api/dockerfiles/zk-single-kafka-single
+api/dockerfiles/mysql-data

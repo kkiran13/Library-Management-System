@@ -1,5 +1,5 @@
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.library.model.BookBody;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ public class BookBodyTest {
     public void BodyTester() throws Exception{
         String newBookStreamRecord = "{\"name\":\"BookName\",\"author\":\"SampleAuthor\",\"publishDate\":\"10/10/2018\",\"genre\":\"SampleGenre\",\"price\":200}";
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode json = objectMapper.readValue(newBookStreamRecord, JsonNode.class);
-        Assert.assertEquals(json.get("name").asText(), "BookName");
+        BookBody book = objectMapper.readValue(newBookStreamRecord, BookBody.class);
+        Assert.assertEquals(book.getName(), "BookName");
     }
 }

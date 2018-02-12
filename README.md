@@ -24,6 +24,14 @@ docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --to
 docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic returnBook --from-beginning
 ```
 
+##Check MySQL database
+```
+cd api/dockerfiles
+docker-compose exec librarydb mysql
+use library; show tables;
+select * from books;
+```
+
 ## Produce to Kafka
 ```
 cd api/dockerfiles
@@ -46,7 +54,7 @@ curl http://localhost:8080/v2/api-docs; echo
 Make sure to have kafka consumer opened on a different terminal to consume posted message from the stream (`Consume from kafka` section above by changing stream name as per the action)
 ## Add New book
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"name":"BookName","author":"SampleAuthor","publishDate":"10/10/2018","genre":"SampleGenre","price":1000}' http://localhost:8080/library/book/add
+curl -H "Content-Type: application/json" -X POST -d '{"name":"BookName","author":"SampleAuthor","publishDate":"10-10-2018","genre":"SampleGenre","price":1000}' http://localhost:8080/library/book/add
 ```
 
 ## Delete book
