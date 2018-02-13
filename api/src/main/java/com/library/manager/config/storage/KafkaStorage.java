@@ -15,13 +15,35 @@ public class KafkaStorage implements DataSinkConfig{
     @Autowired
     private KafkaTemplate kafkaTemplate;
 
-    /***
-     * Method that posts message to kafka
-     * @param message request body
-     */
     @Override
-    public void addBook(String message) {
-        kafkaTemplate.send("newBook", message);
+    public void bookAction(String action, String message) {
+        switch(action) {
+            case "add": kafkaTemplate.send("newBook", message);
+                break;
+            case "remove": kafkaTemplate.send("deleteBook", message);
+                break;
+            case "checkout": kafkaTemplate.send("checkoutBook", message);
+                break;
+            case "return": kafkaTemplate.send("returnBook", message);
+                break;
+            default:
+                System.out.println("INVALID ACTION");
+                break;
+        }
+
+    }
+
+    @Override
+    public void customerAction(String action, String message) {
+        switch(action) {
+            case "add": kafkaTemplate.send("newCustomer", message);
+                break;
+            case "remove": kafkaTemplate.send("deleteCustomer", message);
+                break;
+            default:
+                System.out.println("INVALID ACTION");
+                break;
+        }
     }
 
 }

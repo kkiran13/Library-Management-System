@@ -13,13 +13,12 @@ public class LibraryStorageService {
     @Autowired
     private DataSinkConfig dataSinkConfig;
 
-    /**
-     * Service method to add a new book to inventory
-     * @param message Request body that needs to be sent to storage sink
-     */
-    public void addBook(String message) {
-        dataSinkConfig.addBook(message);
+    public void bookAction(String action, String message) {
+        dataSinkConfig.bookAction(action, message);
     }
 
+    public void customerAction(String action, String message) {
+        dataSinkConfig.customerAction(action, message);
+    }
 
 }
