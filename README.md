@@ -40,7 +40,7 @@ docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topi
 
 ## Health API Endpoint. GET request
 ```
-curl http://localhost:8080/health; echo
+curl http://localhost:8080/library/health; echo
 
 ```
 
@@ -59,7 +59,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"name":"BookName","author"
 
 ## Delete book
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"id": 100}' http://localhost:8080/library/book/remove
+curl -H "Content-Type: application/json" -X POST -d '{"id": 1}' http://localhost:8080/library/book/remove
 ```
 
 ## Add customer
@@ -80,4 +80,10 @@ curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookNa
 ## Return book
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookName": "SampleBookName"}' http://localhost:8080/library/book/return
+```
+
+## Stop all containers
+```
+docker stop dockerfiles_libraryconsumer_1 dockerfiles_libraryproducer_1 dockerfiles_kafka_1 dockerfiles_zookeeper_1 dockerfiles_librarydb_1
+docker ps -q -a | xargs docker rm
 ```

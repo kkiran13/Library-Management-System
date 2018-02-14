@@ -14,5 +14,10 @@ public class BookBodyTest {
         ObjectMapper objectMapper = new ObjectMapper();
         BookBody book = objectMapper.readValue(newBookStreamRecord, BookBody.class);
         Assert.assertEquals(book.getName(), "BookName");
+
+        String deleteBookRecord = "{\"id\": 100}";
+        BookBody deleteBook = objectMapper.readValue(deleteBookRecord, BookBody.class);
+        Assert.assertEquals(deleteBook.getId(), 100);
     }
+
 }

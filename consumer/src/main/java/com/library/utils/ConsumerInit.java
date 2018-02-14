@@ -10,7 +10,7 @@ import java.util.Properties;
  */
 public class ConsumerInit {
 
-    public static KafkaConsumer streamInit(String groupName, String streamName) throws IOException{
+    public KafkaConsumer streamInit(String groupName, String streamName) throws IOException{
         Properties props = new Properties();
         props.put("bootstrap.servers", "kafka:9092");
         props.put("enable.auto.commit", "true");

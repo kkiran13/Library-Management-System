@@ -11,15 +11,36 @@ public class MySqlStorage {
 
     public void newBookStorage(BookBody book) {
         Session session = HibernateUtil.getSessionJavaConfigFactory(book.getClass()).getCurrentSession();
-        //start transaction
-        session.beginTransaction();
-        //Save the Model object
-        session.save(book);
-        //Commit transaction
-        session.getTransaction().commit();
-        System.out.println("Book ID="+book.getId());
-        //terminate session factory, otherwise program won't end
-        session.close();
+        try {
+            //start transaction
+            session.beginTransaction();
+            //Save the Model object
+            session.save(book);
+            //Commit transaction
+            session.getTransaction().commit();
+            System.out.println("Added book ID="+book.getId());
+            //terminate session factory, otherwise program won't end
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Add book storage exception: "+e.getMessage());
+        }
+    }
+
+    public void deleteBookStorage(BookBody book) {
+        Session session = HibernateUtil.getSessionJavaConfigFactory(book.getClass()).getCurrentSession();
+        try {
+            //start transaction
+            session.beginTransaction();
+            //Save the Model object
+            session.delete(book);
+            //Commit transaction
+            session.getTransaction().commit();
+            System.out.println("Delete book ID="+book.getId());
+            //terminate session factory, otherwise program won't end
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Delete book storage exception: "+e.getMessage());
+        }
     }
 
 }

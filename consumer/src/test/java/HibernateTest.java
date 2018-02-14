@@ -18,7 +18,7 @@ public class HibernateTest {
     }
 
     @Test
-    public void sampleTest(){
+    public void addBookTest(){
         BookBody book = new BookBody();
         book.setName("TestName");
         book.setPrice(100);
@@ -29,6 +29,13 @@ public class HibernateTest {
 //        Date publishDate = formatter.parse(dateInString);
         book.setPublishDate(dateInString);
         mySqlStorage.newBookStorage(book);
+    }
+
+    @Test
+    public void deleteBookTest(){
+        BookBody book = new BookBody();
+        book.setId(1);
+        mySqlStorage.deleteBookStorage(book);
     }
 
 }

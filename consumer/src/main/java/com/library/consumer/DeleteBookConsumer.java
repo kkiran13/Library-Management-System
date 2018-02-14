@@ -7,31 +7,33 @@ import com.library.utils.ConsumerInit;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+
 import java.io.IOException;
 
 /**
- * Created by kkiran on 2/9/18.
+ * Created by kkiran on 2/14/18.
  */
-public class NewBookConsumer {
+public class DeleteBookConsumer {
+
     private static ObjectMapper objectMapper;
     private static MySqlStorage mySqlStorage;
     private static ConsumerInit consumerInit;
     private static KafkaConsumer<String, String> kafkaConsumer;
 
-    public NewBookConsumer(String groupName, String streamName) throws IOException{
+    public DeleteBookConsumer(String groupName, String streamName) throws IOException {
         objectMapper = new ObjectMapper();
         mySqlStorage = new MySqlStorage();
         consumerInit = new ConsumerInit();
         kafkaConsumer = consumerInit.streamInit(groupName, streamName);
-        newBookStreamProcessor();
+        deleteBookStreamProcessor();
     }
 
-    private void newBookStreamProcessor() throws IOException{
+    private void deleteBookStreamProcessor() throws IOException{
         while (true) {
             ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
                 BookBody book = objectMapper.readValue(record.value(), BookBody.class);
-                mySqlStorage.newBookStorage(book);
+                mySqlStorage.deleteBookStorage(book);
             }
         }
     }
