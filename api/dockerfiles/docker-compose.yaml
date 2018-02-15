@@ -1,5 +1,4 @@
 version: '2'
-
 services:
   zookeeper:
     image: zookeeper:3.4.9
@@ -32,8 +31,8 @@ services:
     depends_on:
       - zookeeper
 
-  library-manager:
-      image: library-manager
+  libraryproducer:
+      image: libraryproducer
       depends_on:
         - kafka
         - zookeeper
@@ -41,3 +40,22 @@ services:
         - "8080:8080"
       environment:
         SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+  librarydb:
+      image: mysql:latest
+      restart: always
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        - MYSQL_USER=root
+        - MYSQL_DATABASE=library
+      volumes:
+         - ./mysql-data:/mysql-data
+         - ./init_mysql.sql:/docker-entrypoint-initdb.d/init_mysql.sql
+
+  libraryconsumer:
+      image: libraryconsumer
+      depends_on:
+        - kafka
+        - zookeeper
+        - libraryproducer
+        - librarydb

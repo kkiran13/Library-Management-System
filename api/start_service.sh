@@ -14,4 +14,5 @@ fi
 #--------------------------------------------------------------------------------------------
 
 mvn clean package docker:build
+cd ../consumer; mvn clean package docker:build; cd -
 cd dockerfiles; docker-compose up

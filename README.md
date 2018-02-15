@@ -24,6 +24,14 @@ docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --to
 docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic returnBook --from-beginning
 ```
 
+##Check MySQL database
+```
+cd api/dockerfiles
+docker-compose exec librarydb mysql
+use library; show tables;
+select * from books;
+```
+
 ## Produce to Kafka
 ```
 cd api/dockerfiles
@@ -32,7 +40,7 @@ docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topi
 
 ## Health API Endpoint. GET request
 ```
-curl http://localhost:8080/health; echo
+curl http://localhost:8080/library/health; echo
 
 ```
 
@@ -46,12 +54,12 @@ curl http://localhost:8080/v2/api-docs; echo
 Make sure to have kafka consumer opened on a different terminal to consume posted message from the stream (`Consume from kafka` section above by changing stream name as per the action)
 ## Add New book
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"name":"BookName","author":"SampleAuthor","publishDate":"10/10/2018","genre":"SampleGenre","price":1000}' http://localhost:8080/library/book/add
+curl -H "Content-Type: application/json" -X POST -d '{"name":"BookName","author":"SampleAuthor","publishDate":"10-10-2018","genre":"SampleGenre","price":1000}' http://localhost:8080/library/book/add
 ```
 
 ## Delete book
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"id": 100}' http://localhost:8080/library/book/remove
+curl -H "Content-Type: application/json" -X POST -d '{"id": 1}' http://localhost:8080/library/book/remove
 ```
 
 ## Add customer
@@ -72,4 +80,10 @@ curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookNa
 ## Return book
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookName": "SampleBookName"}' http://localhost:8080/library/book/return
+```
+
+## Stop all containers
+```
+docker stop dockerfiles_libraryconsumer_1 dockerfiles_libraryproducer_1 dockerfiles_kafka_1 dockerfiles_zookeeper_1 dockerfiles_librarydb_1
+docker ps -q -a | xargs docker rm
 ```
