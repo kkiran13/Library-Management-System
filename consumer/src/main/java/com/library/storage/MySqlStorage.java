@@ -15,10 +15,10 @@ public class MySqlStorage {
             //start transaction
             session.beginTransaction();
             //Save the Model object
-            session.save(book);
+            session.saveOrUpdate(book);
             //Commit transaction
             session.getTransaction().commit();
-            System.out.println("Added book ID="+book.getId());
+            System.out.println("Added/Updated book ID="+book.getId());
             //terminate session factory, otherwise program won't end
             session.close();
         } catch (Exception e) {
