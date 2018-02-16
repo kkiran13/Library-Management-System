@@ -63,12 +63,12 @@ curl -H "Content-Type: application/json" -X POST -d '{"id": 1}' http://localhost
 
 ## Add customer
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"firstName": "SampleFirstName", "lastName": "SampleLastName", "age": 20, "address": "SampleAddress"}' http://localhost:8080/library/customer/add
+curl -H "Content-Type: application/json" -X POST -d '{"firstname": "SampleFirstName", "lastname": "SampleLastName", "age": 20, "address": "SampleAddress"}' http://localhost:8080/library/customer/add
 ```
 
 ## Remove customer
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"id": 100}' http://localhost:8080/library/customer/remove
+curl -H "Content-Type: application/json" -X POST -d '{"id": 1}' http://localhost:8080/library/customer/remove
 ```
 
 ## Checkout book
@@ -83,6 +83,6 @@ curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookNa
 
 ## Stop all containers
 ```
-docker stop dockerfiles_libraryconsumer_1 dockerfiles_libraryproducer_1 dockerfiles_kafka_1 dockerfiles_zookeeper_1 dockerfiles_librarydb_1
+docker stop dockerfiles_libraryconsumer_1 dockerfiles_libraryproducer_1 dockerfiles_kafka_1 dockerfiles_zookeeper_1 dockerfiles_librarydb_1 dockerfiles_newbookconsumer_1 dockerfiles_deletebookconsumer_1 dockerfiles_addcustomerconsumer_1 dockerfiles_deletecustomerconsumer_1
 docker ps -q -a | xargs docker rm
 ```

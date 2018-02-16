@@ -63,11 +63,31 @@ services:
         - librarydb
 
   deletebookconsumer:
-        build:
-            context: ../../consumer
-            dockerfile: DockerfileDeleteBook
-        depends_on:
-          - kafka
-          - zookeeper
-          - libraryproducer
-          - librarydb
+      build:
+          context: ../../consumer
+          dockerfile: DockerfileDeleteBook
+      depends_on:
+        - kafka
+        - zookeeper
+        - libraryproducer
+        - librarydb
+
+  addcustomerconsumer:
+      build:
+          context: ../../consumer
+          dockerfile: DockerfileNewCustomer
+      depends_on:
+        - kafka
+        - zookeeper
+        - libraryproducer
+        - librarydb
+
+  deletecustomerconsumer:
+      build:
+          context: ../../consumer
+          dockerfile: DockerfileDeleteCustomer
+      depends_on:
+        - kafka
+        - zookeeper
+        - libraryproducer
+        - librarydb
