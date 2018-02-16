@@ -41,7 +41,6 @@ docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topi
 ## Health API Endpoint. GET request
 ```
 curl http://localhost:8080/library/health; echo
-
 ```
 
 ## Swagger API Endpoint. GET request

@@ -11,7 +11,7 @@ public class Runner {
 
     public static void main(String[] args) throws IOException{
         NewBookConsumer nb = new NewBookConsumer("testGroupA", "newBook");
-        DeleteBookConsumer bb = new DeleteBookConsumer("testGroupA", "deleteBook");
+//        DeleteBookConsumer bb = new DeleteBookConsumer("testGroupA", "deleteBook");
     }
 
 }
