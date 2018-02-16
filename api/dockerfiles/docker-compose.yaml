@@ -52,10 +52,18 @@ services:
          - ./mysql-data:/mysql-data
          - ./init_mysql.sql:/docker-entrypoint-initdb.d/init_mysql.sql
 
-  libraryconsumer:
-      image: libraryconsumer
+  newbookconsumer:
+      image: newbookconsumer
       depends_on:
         - kafka
         - zookeeper
         - libraryproducer
         - librarydb
+
+  deletebookconsumer:
+        image: deletebookconsumer
+        depends_on:
+          - kafka
+          - zookeeper
+          - libraryproducer
+          - librarydb
