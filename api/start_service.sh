@@ -14,11 +14,5 @@ fi
 #--------------------------------------------------------------------------------------------
 
 mvn clean package docker:build
-
-cd ../consumer; mvn clean package
-docker build -f DockerfileNewBook -t newbookconsumer .
-docker build -f DockerfileDeleteBook -t deletebookconsumer .
-
-cd -
-
+cd ../consumer; mvn clean package ; cd -
 cd dockerfiles; docker-compose up

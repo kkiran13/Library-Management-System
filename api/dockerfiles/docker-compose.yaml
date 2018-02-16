@@ -53,7 +53,9 @@ services:
          - ./init_mysql.sql:/docker-entrypoint-initdb.d/init_mysql.sql
 
   newbookconsumer:
-      image: newbookconsumer
+      build:
+            context: ../../consumer
+            dockerfile: DockerfileNewBook
       depends_on:
         - kafka
         - zookeeper
@@ -61,7 +63,9 @@ services:
         - librarydb
 
   deletebookconsumer:
-        image: deletebookconsumer
+        build:
+            context: ../../consumer
+            dockerfile: DockerfileDeleteBook
         depends_on:
           - kafka
           - zookeeper
