@@ -76,9 +76,9 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>
-                                        com.library.Runner
-                                    </mainClass>
+                                    <!--<mainClass>-->
+                                        <!--com.library.Runner-->
+                                    <!--</mainClass>-->
                                 </manifest>
                             </archive>
                             <descriptorRefs>
