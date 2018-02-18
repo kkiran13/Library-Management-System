@@ -54,8 +54,8 @@ services:
 
   newbookconsumer:
       build:
-            context: ../../consumer
-            dockerfile: DockerfileNewBook
+          context: ../../consumer
+          dockerfile: DockerfileNewBook
       depends_on:
         - kafka
         - zookeeper

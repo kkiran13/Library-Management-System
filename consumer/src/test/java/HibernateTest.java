@@ -1,4 +1,5 @@
 import com.library.model.BookBody;
+import com.library.model.CustomerBody;
 import com.library.storage.MySqlStorage;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,23 @@ public class HibernateTest {
         BookBody book = new BookBody();
         book.setId(1);
         mySqlStorage.deleteBookStorage(book);
+    }
+
+    @Test
+    public void addCustomerTest() {
+        CustomerBody customerBody = new CustomerBody();
+        customerBody.setFirstname("customer");
+        customerBody.setLastname("one");
+        customerBody.setAge(20);
+        customerBody.setAddress("Address of customer 1");
+        mySqlStorage.newCustomerStorage(customerBody);
+    }
+
+    @Test
+    public void deleteCustomerTest(){
+        CustomerBody customerBody = new CustomerBody();
+        customerBody.setId(1);
+        mySqlStorage.deleteCustomerStorage(customerBody);
     }
 
 }
