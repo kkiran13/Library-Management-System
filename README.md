@@ -3,39 +3,7 @@
 
 ### Build and start the service on port 8080
 ```
-cd api
-bash start_service.sh
-```
-
-## List Kafka Streams
-```
-cd api/dockerfiles
-docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:2181
-```
-
-## Consume from kafka
-```
-cd api/dockerfiles
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newBook --from-beginning
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic deleteBook --from-beginning
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newCustomer --from-beginning
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic deleteCustomer --from-beginning
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic checkoutBook --from-beginning
-docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic returnBook --from-beginning
-```
-
-##Check MySQL database
-```
-cd api/dockerfiles
-docker-compose exec librarydb mysql
-use library; show tables;
-select * from books;
-```
-
-## Produce to Kafka
-```
-cd api/dockerfiles
-docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic newBook
+bash start_app.sh
 ```
 
 ## Health API Endpoint. GET request
@@ -47,6 +15,37 @@ curl http://localhost:8080/library/health; echo
 ```
 curl http://localhost:8080/swagger-resources; echo
 curl http://localhost:8080/v2/api-docs; echo
+```
+
+## List Kafka Streams
+```
+cd dockerfiles
+docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:2181
+```
+
+## Consume from kafka
+```
+cd dockerfiles
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newBook --from-beginning
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic deleteBook --from-beginning
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic newCustomer --from-beginning
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic deleteCustomer --from-beginning
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic checkoutBook --from-beginning
+docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --topic returnBook --from-beginning
+```
+
+## Check MySQL database
+```
+cd dockerfiles
+docker-compose exec librarydb mysql
+use library; show tables;
+select * from books;
+```
+
+## Produce to Kafka
+```
+cd dockerfiles
+docker-compose exec kafka kafka-console-producer --broker-list kafka:9092 --topic newBook
 ```
 
 # Below are available API endpoints:

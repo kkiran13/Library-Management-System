@@ -32,7 +32,9 @@ services:
       - zookeeper
 
   libraryproducer:
-      image: libraryproducer
+      build:
+          context: ../api
+          dockerfile: Dockerfile
       depends_on:
         - kafka
         - zookeeper
@@ -52,9 +54,9 @@ services:
          - ./mysql-data:/mysql-data
          - ./init_mysql.sql:/docker-entrypoint-initdb.d/init_mysql.sql
 
-  newbookconsumer:
+  addbookconsumer:
       build:
-          context: ../../consumer
+          context: ../consumer
           dockerfile: DockerfileNewBook
       depends_on:
         - kafka
@@ -64,7 +66,7 @@ services:
 
   deletebookconsumer:
       build:
-          context: ../../consumer
+          context: ../consumer
           dockerfile: DockerfileDeleteBook
       depends_on:
         - kafka
@@ -74,7 +76,7 @@ services:
 
   addcustomerconsumer:
       build:
-          context: ../../consumer
+          context: ../consumer
           dockerfile: DockerfileNewCustomer
       depends_on:
         - kafka
@@ -84,7 +86,7 @@ services:
 
   deletecustomerconsumer:
       build:
-          context: ../../consumer
+          context: ../consumer
           dockerfile: DockerfileDeleteCustomer
       depends_on:
         - kafka

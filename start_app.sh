@@ -12,7 +12,7 @@ else
 fi
 
 #--------------------------------------------------------------------------------------------
-
-mvn clean package docker:build
-cd ../consumer; mvn clean package ; cd -
+#docker:build
+cd api ; mvn clean package
+cd ../consumer; mvn clean package ; cd ..
 cd dockerfiles; docker-compose up
