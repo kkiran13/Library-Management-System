@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: libraryproducer
+  name: libraryproducer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: libraryproducer-exposed
+  template:
+    metadata:
+      labels:
+        run: libraryproducer-exposed
+    spec:
+      containers:
+      - image: localhost:5000/libraryproducer:0.1.0
+        name: libraryproducer
+        ports:
+        - containerPort: 80
+          protocol: TCP
