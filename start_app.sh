@@ -12,7 +12,6 @@ else
 fi
 
 #--------------------------------------------------------------------------------------------
-#docker:build
 cd api ; mvn clean package
-cd ../consumer; mvn clean package ; cd ..
-cd dockerfiles; docker-compose up
+cd ../consumer; mvn clean package
+cd ../dockerfiles; docker-compose up --build
