@@ -1,6 +1,7 @@
 package com.library.storage;
 
 import com.library.model.BookBody;
+import com.library.model.CustomerBody;
 import com.library.utils.HibernateUtil;
 import org.hibernate.Session;
 
@@ -15,10 +16,10 @@ public class MySqlStorage {
             //start transaction
             session.beginTransaction();
             //Save the Model object
-            session.save(book);
+            session.saveOrUpdate(book);
             //Commit transaction
             session.getTransaction().commit();
-            System.out.println("Added book ID="+book.getId());
+            System.out.println("Added/Updated book ID="+book.getId());
             //terminate session factory, otherwise program won't end
             session.close();
         } catch (Exception e) {
@@ -40,6 +41,40 @@ public class MySqlStorage {
             session.close();
         } catch (Exception e) {
             System.out.println("Delete book storage exception: "+e.getMessage());
+        }
+    }
+
+    public void newCustomerStorage(CustomerBody customer) {
+        Session session = HibernateUtil.getSessionJavaConfigFactory(customer.getClass()).getCurrentSession();
+        try {
+            //start transaction
+            session.beginTransaction();
+            //Save the Model object
+            session.saveOrUpdate(customer);
+            //Commit transaction
+            session.getTransaction().commit();
+            System.out.println("Added/Updated Customer ID="+customer.getId());
+            //terminate session factory, otherwise program won't end
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Add customer storage exception: "+e.getMessage());
+        }
+    }
+
+    public void deleteCustomerStorage(CustomerBody customer) {
+        Session session = HibernateUtil.getSessionJavaConfigFactory(customer.getClass()).getCurrentSession();
+        try {
+            //start transaction
+            session.beginTransaction();
+            //Save the Model object
+            session.delete(customer);
+            //Commit transaction
+            session.getTransaction().commit();
+            System.out.println("Deleted Customer ID="+customer.getId());
+            //terminate session factory, otherwise program won't end
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Delete customer storage exception: "+e.getMessage());
         }
     }
 

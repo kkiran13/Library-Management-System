@@ -1,6 +1,8 @@
 package com.library;
 
+import com.library.consumer.AddCustomerConsumer;
 import com.library.consumer.DeleteBookConsumer;
+import com.library.consumer.DeleteCustomerConsumer;
 import com.library.consumer.NewBookConsumer;
 import java.io.IOException;
 
@@ -10,8 +12,22 @@ import java.io.IOException;
 public class Runner {
 
     public static void main(String[] args) throws IOException{
-        NewBookConsumer nb = new NewBookConsumer("testGroupA", "newBook");
-        DeleteBookConsumer bb = new DeleteBookConsumer("testGroupA", "deleteBook");
+
+        String consumerType = args[0];
+        switch(consumerType) {
+            case "newBook": NewBookConsumer nb = new NewBookConsumer("testGroupA", "newBook");
+                break;
+            case "deleteBook": DeleteBookConsumer db = new DeleteBookConsumer("testGroupA", "deleteBook");
+                break;
+            case "newCustomer": AddCustomerConsumer ac = new AddCustomerConsumer("testGroupA", "newCustomer");
+                break;
+            case "deleteCustomer": DeleteCustomerConsumer dc = new DeleteCustomerConsumer("testGroupA", "deleteCustomer");
+                break;
+            default:
+                System.out.println("INVALID CONSUMER TYPE SPECIFIED");
+                break;
+        }
+
     }
 
 }
