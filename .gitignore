@@ -1,4 +1,5 @@
 .idea
 *.iml
 target/
-api/dockerfiles/zk-single-kafka-single
+dockerfiles/zk-single-kafka-single
+dockerfiles/mysql-data
