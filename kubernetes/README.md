@@ -41,3 +41,18 @@ Get endpoints (currently its none)
 ```
 kubectl get endpoints library-api-service -n kube-system -o yaml
 ```
+
+
+## Below gives endpoints.
+```
+kubectl create -f api_deployment.yaml
+kubectl get deployment
+kubectl describe deployment library-api-deployment
+kubectl expose deployment library-api-deployment --type="NodePort"
+kubectl get pods -l app=libraryproducer
+kubectl get service library-api-deployment
+kubectl describe service library-api-deployment
+
+kubectl delete service library-api-deployment
+kubectl delete deployment library-api-deployment
+```

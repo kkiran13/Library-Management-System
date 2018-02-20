@@ -4,14 +4,15 @@ metadata:
   name: library-api-deployment
 spec:
   replicas: 1 # tells deployment to run 2 pods matching the template
+#  selector:
+#    libraryproducer: "true"
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: libaryproducer
+        app: libraryproducer
     spec:
       containers:
         - image: localhost:5000/libraryproducer:0.1.1
           name: libraryproducer
           ports:
             - containerPort: 8080
-          name: http
