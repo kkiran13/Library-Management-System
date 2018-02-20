@@ -1,58 +1,49 @@
-## Start/Stop MiniKube cluster
+# Kubernetes deployment
+
+## Installation on MacOSX
 ```
 brew update && brew install kubectl && brew cask install minikube virtualbox
-minikube start
-kubectl get nodes
-minikube stop
 ```
 
-## Create Local docker registry
+## Commands to spin up library API using K8S
+Start minikube cluster
 ```
-cd kubernetes
+minikube start OR minikube start --memory=4096
+```
+
+Set docker environment variables in virtualized kube environemtn
+```
+cd LibraryManager/kubernetes
 eval $(minikube docker-env)
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 cd ../api ; docker build . --tag libraryproducer ; cd -
-docker tag libraryproducer localhost:5000/libraryproducer:0.1.1
+docker tag libraryproducer localhost:5000/libraryproducer:0.1.2
 ```
 
-## Create K8S pod
+Create service and deployment for API
 ```
-cd kubernetes
-kubectl create -f api_deployment.yaml
-kubectl describe deployment library-api-deployment
-kubectl describe pods
-kubectl delete deployment library-api-deployment
-```
-
-## Create K8S Service
-```
-cd kubernetes
 kubectl create -f api_service.yaml
-kubectl describe service library-api-service
-kubectl delete service library-api-service
+kubectl create -f api_deployment.yaml
 ```
 
-Get URL to access API
+Describe service and deployment created
+```
+kubectl describe service libraryproducer
+kubectl describe deployment libraryproducer
+```
+
+Get URL and access health endpoint of API (Should return `Library API is healthy!!`)
 ```
 minikube service libraryproducer --url
+curl $(minikube service libraryproducer --url)/library/health ; echo
 ```
 
-Get endpoints (currently its none)
+Clean up cluster by deleting deployment and service created
 ```
-kubectl get endpoints library-api-service -n kube-system -o yaml
+kubectl delete service,deployment libraryproducer
 ```
 
-
-## Below gives endpoints.
+Stop minikube cluster
 ```
-kubectl create -f api_deployment.yaml
-kubectl get deployment
-kubectl describe deployment library-api-deployment
-kubectl expose deployment library-api-deployment --type="NodePort"
-kubectl get pods -l app=libraryproducer
-kubectl get service library-api-deployment
-kubectl describe service library-api-deployment
-
-kubectl delete service library-api-deployment
-kubectl delete deployment library-api-deployment
+minikube stop
 ```

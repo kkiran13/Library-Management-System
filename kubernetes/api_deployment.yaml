@@ -1,18 +1,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: library-api-deployment
+  name: libraryproducer
 spec:
-  replicas: 1 # tells deployment to run 2 pods matching the template
-#  selector:
-#    libraryproducer: "true"
-  template: # create pods using pod definition in this template
+  replicas: 1
+  template:
     metadata:
       labels:
         app: libraryproducer
+        tier: backend
     spec:
       containers:
-        - image: localhost:5000/libraryproducer:0.1.1
-          name: libraryproducer
-          ports:
-            - containerPort: 8080
+      - name: libraryproducer
+        image: localhost:5000/libraryproducer:0.1.2
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
