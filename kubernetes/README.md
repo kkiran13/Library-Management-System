@@ -6,28 +6,38 @@ kubectl get nodes
 minikube stop
 ```
 
-## Local docker registry
+## Create Local docker registry
 ```
+cd kubernetes
+eval $(minikube docker-env)
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
-cd api ; docker build -t libraryproducer . ; docker tag libraryproducer libraryproducer ; cd ..
-docker tag libraryproducer localhost:5000/libraryproducer:0.1.0
+cd ../api ; docker build . --tag libraryproducer ; cd -
+docker tag libraryproducer localhost:5000/libraryproducer:0.1.1
 ```
 
 ## Create K8S pod
 ```
-kubectl create -f kubernetes/api_deployment.yaml
-kubectl describe pod libraryproducer
-kubectl delete pod libraryproducer
+cd kubernetes
+kubectl create -f api_deployment.yaml
+kubectl describe deployment library-api-deployment
+kubectl describe pods
+kubectl delete deployment library-api-deployment
 ```
 
 ## Create K8S Service
 ```
-kubectl create -f kubernetes/api_service.yaml
-kubectl describe svc libraryproducer
-kubectl delete svc libraryproducer
+cd kubernetes
+kubectl create -f api_service.yaml
+kubectl describe service library-api-service
+kubectl delete service library-api-service
 ```
 
 Get URL to access API
 ```
 minikube service libraryproducer --url
+```
+
+Get endpoints (currently its none)
+```
+kubectl get endpoints library-api-service -n kube-system -o yaml
 ```
