@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: libraryproducer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: libraryproducer
+        tier: backend
+    spec:
+      containers:
+      - name: libraryproducer
+        image: localhost:5000/libraryproducer:0.1.2
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
