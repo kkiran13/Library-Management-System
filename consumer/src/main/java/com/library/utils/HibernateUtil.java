@@ -21,11 +21,12 @@ public class HibernateUtil {
 
             //Create Properties, can be read from property files too
             Properties props = new Properties();
-            props.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+            props.put("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
             props.put("hibernate.connection.url", "jdbc:mysql://librarydb:3306/library");
             props.put("hibernate.connection.username", "root");
             props.put("hibernate.connection.password", "");
             props.put("hibernate.current_session_context_class", "thread");
+            props.put("useSSL", "false");
 
             configuration.setProperties(props);
             configuration.addAnnotatedClass(neededClass);
