@@ -37,8 +37,8 @@ docker-compose exec kafka kafka-console-consumer --zookeeper zookeeper:2181 --to
 ## Check MySQL database
 ```
 cd dockerfiles
-docker-compose exec librarydb mysql
-use library; show tables;
+docker-compose exec librarydb mysql -U library
+show tables;
 select * from books;
 ```
 
@@ -78,17 +78,6 @@ curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookNa
 ## Return book
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"customerId": 101, "bookName": "SampleBookName"}' http://localhost:8080/library/book/return
-```
-
-## Stop all containers
-```
-docker stop dockerfiles_libraryconsumer_1 dockerfiles_libraryproducer_1 dockerfiles_kafka_1 dockerfiles_zookeeper_1 dockerfiles_librarydb_1 dockerfiles_newbookconsumer_1 dockerfiles_deletebookconsumer_1 dockerfiles_addcustomerconsumer_1 dockerfiles_deletecustomerconsumer_1
-docker ps -q -a | xargs docker rm
-```
-
-## Remove images
-```
-docker rmi dockerfiles_deletecustomerconsumer dockerfiles_addcustomerconsumer dockerfiles_deletebookconsumer dockerfiles_addbookconsumer dockerfiles_libraryproducer
 ```
 
 ## Cleanup metadata and dangling containers

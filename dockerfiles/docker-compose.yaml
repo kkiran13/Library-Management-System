@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   zookeeper:
     image: zookeeper:3.4.9
@@ -44,7 +44,7 @@ services:
         SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
   librarydb:
-      image: mysql:latest
+      image: mysql:5.7.22
       restart: always
       environment:
         - MYSQL_ALLOW_EMPTY_PASSWORD=yes
@@ -57,7 +57,9 @@ services:
   addbookconsumer:
       build:
           context: ../consumer
-          dockerfile: DockerfileNewBook
+          dockerfile: Dockerfile
+          args:
+            - processName=newBook
       depends_on:
         - kafka
         - zookeeper
@@ -67,7 +69,9 @@ services:
   deletebookconsumer:
       build:
           context: ../consumer
-          dockerfile: DockerfileDeleteBook
+          dockerfile: Dockerfile
+          args:
+            - processName=deleteBook
       depends_on:
         - kafka
         - zookeeper
@@ -77,7 +81,9 @@ services:
   addcustomerconsumer:
       build:
           context: ../consumer
-          dockerfile: DockerfileNewCustomer
+          dockerfile: Dockerfile
+          args:
+            - processName=newCustomer
       depends_on:
         - kafka
         - zookeeper
@@ -87,7 +93,9 @@ services:
   deletecustomerconsumer:
       build:
           context: ../consumer
-          dockerfile: DockerfileDeleteCustomer
+          dockerfile: Dockerfile
+          args:
+            - processName=deleteCustomer
       depends_on:
         - kafka
         - zookeeper
